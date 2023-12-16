@@ -35,9 +35,11 @@ class Connection:
         str_attrs = f'{attrs}'.replace("'", '"')
         str_data = f'{data}'[1:-1]
         sql_request = f'''INSERT INTO "{table_name}"{str_attrs} VALUES {str_data}'''
-        print(sql_request)
         self._cursor.execute(sql_request)
         self._connection.commit()
 
-    def delete(self, table_name: str):
-        raise NotImplementedError
+    def delete(self, table_name: str, condition: str = None):
+        condition = ' WHERE ' + condition if condition else ''
+        sql_request = f'''DELETE FROM "{table_name}"{condition}'''
+        self._cursor.execute(sql_request)
+        self._connection.commit()

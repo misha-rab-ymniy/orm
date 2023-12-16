@@ -30,6 +30,9 @@ class BaseModel:
         attrs = tuple([type(self).__dict__['__annotations__'].keys()][0])[1:]
         _connection.insert(self._name, attrs, values)
 
+    def delete(self, condition: str = None):
+        _connection.delete(self._name, condition)
+
     def __str__(self):
         attributes = type(self).__dict__['__annotations__']
         string = f"{type(self).__name__}("
