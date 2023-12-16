@@ -30,3 +30,14 @@ class Connection:
         sql_request = f'''UPDATE "{table_name}" SET {str_data}{condition}'''
         self._cursor.execute(sql_request)
         self._connection.commit()
+
+    def insert(self, table_name: str, attrs: tuple, data: tuple):
+        str_attrs = f'{attrs}'.replace("'", '"')
+        str_data = f'{data}'[1:-1]
+        sql_request = f'''INSERT INTO "{table_name}"{str_attrs} VALUES {str_data}'''
+        print(sql_request)
+        self._cursor.execute(sql_request)
+        self._connection.commit()
+
+    def delete(self, table_name: str):
+        raise NotImplementedError

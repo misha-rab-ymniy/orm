@@ -25,6 +25,11 @@ class BaseModel:
     def update(self, data: dict, condition: str = None):
         _connection.update(self._name, data, condition)
 
+    def insert(self, *values: tuple):
+        print(values)
+        attrs = tuple([type(self).__dict__['__annotations__'].keys()][0])[1:]
+        _connection.insert(self._name, attrs, values)
+
     def __str__(self):
         attributes = type(self).__dict__['__annotations__']
         string = f"{type(self).__name__}("
