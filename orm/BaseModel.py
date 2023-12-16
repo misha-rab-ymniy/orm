@@ -1,16 +1,16 @@
 from .DbConnection import Connection as Conn
 
+_connection = Conn()
+
 
 class BaseModel:
-    _connection: Conn
     _name: str
 
     def __init__(self):
-        self._connection = Conn()
         self._name = type(self).__name__
 
     def select(self):
-        data = self._connection.select(self._name)
+        data = _connection.select(self._name)
         obj_data = []
         for obj in data:
             use = locals()['self'].__class__()
@@ -23,7 +23,7 @@ class BaseModel:
         return obj_data
 
     def update(self, data: dict, condition: str = None):
-        self._connection.update(self._name, data, condition)
+        _connection.update(self._name, data, condition)
 
     def __str__(self):
         attributes = type(self).__dict__['__annotations__']

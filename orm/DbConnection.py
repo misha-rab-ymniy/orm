@@ -1,4 +1,5 @@
 import psycopg2
+import json
 
 
 class Connection:
@@ -6,8 +7,9 @@ class Connection:
     _cursor = None
 
     def __init__(self):
-        self._connection = psycopg2.connect(database="cinema", host="localhost", user="mikhail", password="8057070Vb",
-                                            port=5432)
+        with open('../orm/orm/db_config.json') as file:
+            data = json.load(file)
+        self._connection = psycopg2.connect(**data)
         self._cursor = self._connection.cursor()
 
     def select(self, table_name: str) -> tuple:
@@ -28,7 +30,3 @@ class Connection:
         sql_request = f'''UPDATE "{table_name}" SET {str_data}{condition}'''
         self._cursor.execute(sql_request)
         self._connection.commit()
-
-
-
-
