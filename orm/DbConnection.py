@@ -12,8 +12,12 @@ class Connection:
         self._connection = psycopg2.connect(**data)
         self._cursor = self._connection.cursor()
 
-    def select(self, table_name: str) -> tuple:
-        self._cursor.execute(f'''SELECT * FROM "{table_name}"''')
+    def select(self, table_name: str, columns: tuple = None) -> tuple:
+        if columns is None:
+            columns_str = "*"
+        else:
+            columns_str = ", ".join(columns)
+        self._cursor.execute(f'''SELECT {columns_str} FROM "{table_name}"''')
         data = self._cursor.fetchall()
         return data
 
