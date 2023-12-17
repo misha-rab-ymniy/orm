@@ -43,3 +43,8 @@ class Connection:
         sql_request = f'''DELETE FROM "{table_name}"{condition}'''
         self._cursor.execute(sql_request)
         self._connection.commit()
+
+    def execute(self, sql_request: str):
+        self._cursor.execute(sql_request)
+        self._connection.commit()
+        return self._cursor.fetchall()

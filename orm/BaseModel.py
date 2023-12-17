@@ -33,6 +33,10 @@ class BaseModel:
     def delete(self, condition: str = None):
         _connection.delete(self._name, condition)
 
+    @staticmethod
+    def execute(sql_request: str):
+        _connection.execute(sql_request)
+
     def __str__(self):
         attributes = type(self).__dict__['__annotations__']
         string = f"{type(self).__name__}("
