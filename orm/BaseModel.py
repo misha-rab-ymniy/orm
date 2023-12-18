@@ -16,12 +16,11 @@ class BaseModel:
             name = name.lower()
         except IndexError:
             name = name.lower()
-        print(name)
         self._name = name
 
-    def select(self, columns: tuple = None):
+    def select(self, columns: tuple = None, condition: str = None):
         if columns is None:
-            data = _connection.select(self._name)
+            data = _connection.select(self._name, condition=condition)
             obj_data = []
             for obj in data:
                 use = locals()['self'].__class__()
@@ -33,7 +32,7 @@ class BaseModel:
                 obj_data.append(use)
             return obj_data
         else:
-            data = _connection.select(self._name, columns)
+            data = _connection.select(self._name, columns, condition)
             return data
 
     def update(self, data: dict, condition: str = None):
