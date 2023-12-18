@@ -1,4 +1,5 @@
 from .DbConnection import Connection as Conn
+import re
 
 _connection = Conn()
 
@@ -7,7 +8,16 @@ class BaseModel:
     _name: str
 
     def __init__(self):
-        self._name = type(self).__name__
+        name: str = type(self).__name__
+        try:
+            letter = re.findall('([A-Z])', name)[1]
+            index = name.find(letter)
+            name = name[:index] + '_' + name[index:]
+            name = name.lower()
+        except IndexError:
+            name = name.lower()
+        print(name)
+        self._name = name
 
     def select(self, columns: tuple = None):
         if columns is None:
