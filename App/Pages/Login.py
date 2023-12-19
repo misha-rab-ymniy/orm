@@ -9,7 +9,7 @@ class LoginPage:
 
     def __init__(self):
         while not self._isSuccess:
-            print("Do you want to signin or signup or just open the app (input 1/2/3)?")
+            print("Do you want to signin or signup or just open the App (input 1/2/3)?")
             choice = input()
             if choice == "1":
                 self.login()

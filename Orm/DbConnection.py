@@ -7,7 +7,7 @@ class Connection:
     _cursor = None
 
     def __init__(self):
-        with open('../orm/orm/db_config.json') as file:
+        with open('./Orm/db_config.json') as file:
             data = json.load(file)
         self._connection = psycopg2.connect(**data)
         self._cursor = self._connection.cursor()

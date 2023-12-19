@@ -1,5 +1,5 @@
 from Entities import User
-from .pages import LoginPage
+from .Pages import LoginPage
 
 
 class App:
