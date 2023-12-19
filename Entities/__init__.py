@@ -2,3 +2,8 @@ from .Log import Log
 from .Role import Role
 from .User import User
 from .ActivityType import ActivityType
+from .Film import Film
+from .Genre import Genre
+from .Review import Review
+from .Schedule import Schedule
+from .FilmGenres import FilmGenres

@@ -1,4 +1,5 @@
 from .Login import LoginPage
+from .Film import FilmPage
 from Entities import User, Log, ActivityType
 
 
@@ -25,7 +26,10 @@ class NavigationComponent:
             choices[choice]()
 
     def films(self):
-        pass
+        film_page = FilmPage(self._user)
+        film_page.film_list()
+        if self._user.is_admin():
+            film_page.film_change()
 
     def exit(self):
         exit()
@@ -44,6 +48,15 @@ class NavigationComponent:
             activity_type = ActivityType().select(condition=f"activity_type_id = '{log.activity_type_id}'")[0].name
             print(
                 f"{log.date}, {log.time}, {activity_type}")
+        print("Do you want to update your data? (y/n)")
+        choice = input()
+        if choice == "y":
+            print(f"Enter which attribute you want to update: ")
+            attribute = input()
+            print(f"Enter a new value of {attribute}:")
+            value = input()
+            self._user.update({attribute: value}, condition=f"user_id = '{self._user.user_id}'")
+            self._user = self._user.select(condition=f"user_id = '{self._user.user_id}'")[0]
 
     def logout(self):
         self._user = LoginPage().logout()
