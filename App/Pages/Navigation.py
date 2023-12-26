@@ -1,6 +1,6 @@
 from .Login import LoginPage
 from .Film import FilmPage
-from Entities import User, Log, ActivityType
+from Entities import User, Log, ActivityType, Review
 
 
 class NavigationComponent:
@@ -15,21 +15,32 @@ class NavigationComponent:
             choices = {2: self.films, 1: self.exit}
             print("1. Exit\n2. Films")
             if self._user.is_logged():
-                print("3. Profile\n4. Logout")
+                print("3. Profile\n4. Logout\n5. Make review")
                 print(f"Your nickname: {self._user.username}")
                 choices[3] = self.profile
                 choices[4] = self.logout
+                choices[5] = self.review
             else:
                 print("3. Login")
                 choices[3] = self.login
             choice = int(input())
             choices[choice]()
 
+    def review(self):
+        values = []
+        print(f"Enter film_id")
+        values.append(int(input()))
+        values.append(self._user.user_id)
+        print(f"Enter text of review")
+        values.append(input())
+        Review().insert(tuple(values))
+
     def films(self):
         film_page = FilmPage(self._user)
         film_page.film_list()
         if self._user.is_admin():
             film_page.film_change()
+        film_page.took_place()
 
     def exit(self):
         exit()

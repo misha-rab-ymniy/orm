@@ -7,3 +7,8 @@ from .Genre import Genre
 from .Review import Review
 from .Schedule import Schedule
 from .FilmGenres import FilmGenres
+from .AvailableSeat import AvailableSeat
+from .Cinema import Cinema
+from .Hall import Hall
+from .Seat import Seat
+from .Ticket import Ticket
